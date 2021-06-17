@@ -70,7 +70,7 @@ class TWCDCNEWS {
             //print_r($link); // debug
             if (preg_match("/新增.*例.*(個案|病例|確診|COVID-19)/",$link['title']) && !preg_match("/國內新增/",$link['title'])) {
                 $content_arr=self::get_content($link['url']);
-                print_r($content_arr);
+                //print_r($content_arr); // debug
                 if ($this->date)
                     $check_date=$this->date;
                 else
