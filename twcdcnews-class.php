@@ -97,11 +97,12 @@ class TWCDCNEWS {
                     } elseif (preg_match("/另有([0-9]+)例本土個案為校正回歸/sum", $brief, $match)) {
                         $arr['amend']=$match[1]; unset($match);
                     }
-                    if (strstr($brief,"均為本土")) {
+                    if (preg_match("/均.{0,1}為本土/sum",$brief)) { // 均為本土個案 均例為本土個案
                         preg_match("/([0-9]+)例.{0,2}COVID-19.{0,4}確定病例/sum", $brief, $match);
                         $arr['local']=$match[1]; unset($match);
+                        echo "D1\n";
                         $n=2;
-                    } elseif (strstr($brief,"均為境外")) {
+                    } elseif (preg_match("/均.{0,1}為境外/",$brief)) {
                         preg_match("/([0-9]+)例.{0,2}COVID-19.{0,4}確定病例/sum", $brief, $match);
                         $arr['outside']=$match[1]; unset($match);
                         $n=2;
