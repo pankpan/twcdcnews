@@ -28,7 +28,7 @@ class TWCDCNEWS {
         curl_setopt($ch, CURLOPT_TIMEOUT, 8);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $res=curl_exec($ch);        
-        file_put_contents("/tmp/cdcnews.html",$res); // for debug
+        file_put_contents("/tmp/twcdcnews.html",$res); // for debug
         if (strstr($res,"cube-portfolio")||strstr($res,"js-grid-agency")) $this->have_link=true;
         $dom = new DOMDocument();
         $dom->loadHTML($res);
@@ -72,9 +72,10 @@ class TWCDCNEWS {
                 $content_arr=self::get_content($link['url']);
                 //print_r($content_arr); // debug
                 if ($this->date)
-                    $check_date=$this->date;
+                    $check_date=str_replace(".","-",$this->date); // 查詢時日期格式是 . 內容是 - 檢查要代換
                 else
                     $check_date=date("Y-m-d");
+                //echo "check_date = ".$check_date."\n"; // debug
                 if ($content_arr['date']==$check_date) { // 發佈日期：有包含 date
                     $brief=strtok($content_arr['content'],"\n"); // 取第一段
                     $brief_union.=$brief; 
@@ -100,7 +101,6 @@ class TWCDCNEWS {
                     if (preg_match("/均.{0,1}為本土/sum",$brief)) { // 均為本土個案 均例為本土個案
                         preg_match("/([0-9]+)例.{0,2}COVID-19.{0,4}確定病例/sum", $brief, $match);
                         $arr['local']=$match[1]; unset($match);
-                        echo "D1\n";
                         $n=2;
                     } elseif (preg_match("/均.{0,1}為境外/",$brief)) {
                         preg_match("/([0-9]+)例.{0,2}COVID-19.{0,4}確定病例/sum", $brief, $match);
