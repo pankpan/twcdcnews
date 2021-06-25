@@ -1,5 +1,5 @@
 # twcdcnews
-Taiwan CDC News (台灣衛福部疫管署新聞稿) PHP Class
+Taiwan CDC News (台灣衛福部疾管署新聞稿) PHP Class
 
 ### new TWCDCNEWS() 裡面可不帶參數或帶日期參數, 格式 YYYY-mm-dd
     include("twcdcnews-class.php");
