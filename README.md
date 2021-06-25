@@ -4,11 +4,13 @@ Taiwan CDC News (台灣衛福部疫管署新聞稿) PHP Class
 例:
 * new TWCDCNEWS() 裡面可不帶參數或帶日期參數, 格式 YYYY-mm-dd
 
+
     $cdc = new TWCDCNEWS(); // 查首頁資訊
     或
     $cdc = new TWCDCNEWS("2021-06-26"); // 指定日期搜尋新聞搞
 
 * 回傳新聞稿的 link, 傳回陣列, 含 title 及 url 兩個欄位
+
 
     $cdc->get_links(); 
     回傳陣列內容
@@ -42,6 +44,7 @@ Taiwan CDC News (台灣衛福部疫管署新聞稿) PHP Class
 
 * 帶入 get_links() 取回的 url, 取得新聞稿內容, 含 data, subject, content 三個欄位
 
+
     $cdc->get_content($url); 
     回傳陣列內容
     Array
@@ -69,6 +72,7 @@ Taiwan CDC News (台灣衛福部疫管署新聞稿) PHP Class
     )
 
 * 取得確診數新聞稿資訊，數據、摘要, 含 case 等七個欄位
+
 
     $cdc->get_cases();
     // case 確診數
