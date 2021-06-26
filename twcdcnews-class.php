@@ -70,6 +70,10 @@ class TWCDCNEWS {
             //print_r($link); // debug
             if (preg_match("/新增.*例.*(個案|病例|確診|COVID-19)/",$link['title']) && !preg_match("/國內新增/",$link['title'])) {
                 $content_arr=self::get_content($link['url']);
+                if ($arr['url'])
+                    $arr['url'].=",".$link['url']; // 有兩則新聞稿的情況
+                else
+                    $arr['url']=$link['url'];
                 //print_r($content_arr); // debug
                 if ($this->date)
                     $check_date=str_replace(".","-",$this->date); // 查詢時日期格式是 . 內容是 - 檢查要代換
@@ -83,7 +87,7 @@ class TWCDCNEWS {
                     $arr['date']=$content_arr['date'];
                     //echo "brief=$brief\ncontent=$content\n"; // debug
                     $news_id=basename(parse_url($link['url'])['path']);
-                    file_put_contents("/tmp/twcdcnews-".$news_id,"$brief\n$content\n",FILE_APPEND); // debug
+                    //file_put_contents("/tmp/twcdcnews-".$news_id,"$brief\n$content\n",FILE_APPEND); // debug
                     /* case 改最後加總
                     if (preg_match("/([0-9]+)例COVID-19確定病例/sum", $brief, $match)) {
                         $arr['case']=$match[1]; unset($match);

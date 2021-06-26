@@ -51,7 +51,7 @@ Taiwan CDC News (台灣衛福部疾管署新聞稿) PHP Class 及 2021 之後的
 
     )
 
-### 取得確診數新聞稿資訊，數據、摘要, 含 case 等七個欄位
+### 取得確診數新聞稿資訊，數據、摘要, 含 case 等八個欄位
     $cdc->get_cases();
     // case 確診數
     // local 本土案例
@@ -60,6 +60,7 @@ Taiwan CDC News (台灣衛福部疾管署新聞稿) PHP Class 及 2021 之後的
     // death 死亡案例
     // date 日期
     // brief 摘要
+    // url 新聞稿網址
 #### 回傳陣列內容範例
     Array
     (
@@ -70,6 +71,7 @@ Taiwan CDC News (台灣衛福部疾管署新聞稿) PHP Class 及 2021 之後的
         [death] => 5
         [date] => 2021-06-25
         [brief] => 發佈日期：2021-06-25 中央流行疫情指揮中心今(25)日公布國內新增76例COVID-19確定病例，均為本土個案；其中34例為居家隔離/檢疫期間或期滿檢驗陽性者。另，確診個案中新增5例死亡。
+        [url] => https://www.cdc.gov.tw/Bulletin/Detail/9pKIzKzZOpp4HocU3uCl6g?typeid=9
     )
 另外 data 目錄裡面有 2021 之後的確診數資料，每日的 json 檔，
 today.json 是今天的資料，
