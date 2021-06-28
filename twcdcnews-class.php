@@ -8,24 +8,28 @@ class TWCDCNEWS {
             $date=date("Y.m.d",strtotime($date));
             $this->date=$date;
         }
-        $this->page_load($home);
+        $this->page_load();
     }
     // 載入頁面, 有指定日期去搜尋, 無指定日期載入首頁
     public function page_load() {
         if ($this->date) {
-            $data = array('PageSize' => '10',
-                            'id' => '9',
-                            'keyword' => '',
-                            'startTime' => $this->date,
-                            'endTime'=> $this->date);
-            $request=http_build_query($data);
             $ch = curl_init (self::SEARCH_URL);
-            curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_POSTFIELDS,$request);
+            if ($this->date==date("Y.m.d")) {
+                // 日期 = 今天, 不搜尋, 直接連新聞稿頁(較快)
+            } else {            
+                $data = array('PageSize' => '10',
+                                'id' => '9',
+                                'keyword' => '',
+                                'startTime' => $this->date,
+                                'endTime'=> $this->date);
+                $request=http_build_query($data);                
+                curl_setopt($ch, CURLOPT_POST, true);
+                curl_setopt($ch, CURLOPT_POSTFIELDS,$request);
+            }
         } else { // homepage
             $ch = curl_init (self::BASE_URL);
         }
-        curl_setopt($ch, CURLOPT_TIMEOUT, 8);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 12);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $res=curl_exec($ch);        
         file_put_contents("/tmp/twcdcnews.html",$res); // for debug
