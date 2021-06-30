@@ -74,10 +74,6 @@ class TWCDCNEWS {
             //print_r($link); // debug
             if (preg_match("/新增.*例.*(個案|病例|確診|COVID-19)/",$link['title']) && !preg_match("/國內新增/",$link['title'])) {
                 $content_arr=self::get_content($link['url']);
-                if ($arr['url'])
-                    $arr['url'].=",".$link['url']; // 有兩則新聞稿的情況
-                else
-                    $arr['url']=$link['url'];
                 //print_r($content_arr); // debug
                 if ($this->date)
                     $check_date=str_replace(".","-",$this->date); // 查詢時日期格式是 . 內容是 - 檢查要代換
@@ -85,6 +81,10 @@ class TWCDCNEWS {
                     $check_date=date("Y-m-d");
                 //echo "check_date = ".$check_date."\n"; // debug
                 if ($content_arr['date']==$check_date) { // 發佈日期：有包含 date
+                    if ($arr['url'])
+                        $arr['url'].=",".$link['url']; // 有兩則新聞稿的情況
+                    else
+                        $arr['url']=$link['url'];
                     $brief=strtok($content_arr['content'],"\n"); // 取第一段
                     $brief_union.=$brief; 
                     //中央流行疫情指揮中心今(18)日公布國內新增245例COVID-19確定病例，分別為240例本土及5例境外移入；確診個案中新增2例死亡（案1522、案2095）。
