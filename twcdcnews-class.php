@@ -57,12 +57,18 @@ class TWCDCNEWS {
     // 取得新聞稿內容, 傳回陣列, 含 subject 及 content
     public function get_content($url) {
         $res=file_get_contents($url);
-        $dom_c = new DomDocument();
-        $dom_c->loadHTML($res);
-        $xpath_c=new DOMXPath($dom_c);
-        $subject = trim($xpath_c->query("//meta[@property='og:title']")[0]->getAttribute('content'));
-        preg_match("/發佈日期：([0-9-]{10})(.*)/sim",$dom_c->getElementsByTagName("section")[0]->textContent,$match);
-        $content=trim("發佈日期：".trim($match[1])." ".trim($match[2]));
+        if (strlen($res)>1000 && strstr($res,"html")) { // 基本長度及內容檢查
+            $dom_c = new DomDocument();
+            $dom_c->loadHTML($res);
+            $xpath_c=new DOMXPath($dom_c);
+            try {
+                $subject = trim($xpath_c->query("//meta[@property='og:title']")[0]->getAttribute('content'));
+            } catch (Exception $e) {
+                echo 'Caught exception: '.$e->getMessage()."\n";
+            }
+            preg_match("/發佈日期：([0-9-]{10})(.*)/sim",$dom_c->getElementsByTagName("section")[0]->textContent,$match);
+            $content=trim("發佈日期：".trim($match[1])." ".trim($match[2]));
+        }
         return ["date"=>$match[1],"subject"=>$subject,"content"=>$content];
     }
     // 取得確診數新聞稿資訊，數據、摘要
