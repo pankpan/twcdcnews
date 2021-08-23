@@ -15,7 +15,7 @@ class TWCDCNEWS {
         if ($this->date) {
             $ch = curl_init (self::SEARCH_URL);
             if ($this->date==date("Y.m.d")) {
-                // 日期 = 今天, 不搜尋, 直接連新聞稿頁(較快)
+                // 日期 = 今天, 不搜尋, 直接連搜尋頁不帶參數(較快)
             } else {            
                 $data = array('PageSize' => '10',
                                 'id' => '9',
