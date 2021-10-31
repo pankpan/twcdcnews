@@ -75,4 +75,4 @@ Taiwan CDC News (台灣衛福部疾管署新聞稿) PHP Class 及 2021 之後的
     )
 另外 data 目錄裡面有 2021 之後的確診數資料，每日的 json 檔，
 today.json 是今天的資料，
-2021.json 2021.csv 是累積的資料，每天自動更新。
+2021.json 及 2021.csv 是累積的資料，每天自動更新。
