@@ -135,6 +135,9 @@ class TWCDCNEWS {
                         } elseif (preg_match("/([0-9]+)例COVID-19境外/sum", $brief, $match)) {
                             $arr['outside']=$match[1]; unset($match);
                             $n++;
+                        } elseif (preg_match("/([0-9]+)例COVID-19移入/sum", $brief, $match)) {
+                            $arr['outside']=$match[1]; unset($match); // 日公布國內新增11例COVID-19移入確定病例；另確診個案中無新增死亡。
+                            $n++;
                         } elseif (preg_match("/([0-9]+)例COVID-19確定病例，.{2,6}入境/sum", $brief, $match)) {
                             $arr['outside']=$match[1]; unset($match); //  新增1例COVID-19確定病例，自美國入境
                             $n++;
