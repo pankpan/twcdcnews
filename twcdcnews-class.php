@@ -123,9 +123,12 @@ class TWCDCNEWS {
                     } else {
                         if (preg_match("/([0-9]+)例.{0,1}本土/sum", $brief, $match)) {
                             $arr['local']=$match[1]; unset($match);
-                            print_r($match);
                             $n++;
                         } elseif (preg_match("/([0-9]+)例COVID-19本土/sum", $brief, $match)) {
+                            $arr['local']=$match[1]; unset($match);
+                            $n++;
+                        } elseif (preg_match("/([0-9]+)例[\([案、0-9-]+\)本土/sum", $brief, $match)) {
+                            // 分別為4例(案17230、案17238-17240)本土及30例境外移入
                             $arr['local']=$match[1]; unset($match);
                             $n++;
                         }
@@ -143,9 +146,12 @@ class TWCDCNEWS {
                             $n++;
                         }
                     }
-                    if (preg_match("/([0-9]+)例死亡/sum", $brief, $match)) $arr['death']=$match[1]; unset($match);
+                    if (preg_match("/([0-9]+)例死亡/sum", $brief, $match)) {
+                        $arr['death']=$match[1]; unset($match);
+                    }
                 }
             }
+            echo "n=$n\n".$arr['local']."\n";
             if ($n>=2 || ($arr['local'] && $arr['outside'])) break;
         }
         $arr['case']=$arr['local']+$arr['amend']+$arr['outside'];
