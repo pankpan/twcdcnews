@@ -107,6 +107,7 @@ class TWCDCNEWS {
                         $arr['case']=$match[1]; unset($match);
                     }
                     */
+                    echo "BRIEF = $brief\n";
                     if (preg_match("/校正回歸本土個案([0-9]+)例/sum", $brief, $match)) {
                         $arr['amend']=$match[1]; unset($match);
                     } elseif (preg_match("/另有([0-9]+)例本土個案為校正回歸/sum", $brief, $match)) {
