@@ -152,7 +152,6 @@ class TWCDCNEWS {
                     }
                 }
             }
-            echo "n=$n\n".$arr['local']."\n";
             if ($n>=2 || ($arr['local'] && $arr['outside'])) break;
         }
         $arr['case']=$arr['local']+$arr['amend']+$arr['outside'];
