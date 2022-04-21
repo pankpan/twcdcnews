@@ -108,47 +108,47 @@ class TWCDCNEWS {
                     }
                     */
                     echo "BRIEF = $brief\n";
-                    if (preg_match("/校正回歸本土個案([0-9]+)例/sum", $brief, $match)) {
-                        $arr['amend']=$match[1]; unset($match);
-                    } elseif (preg_match("/另有([0-9]+)例本土個案為校正回歸/sum", $brief, $match)) {
-                        $arr['amend']=$match[1]; unset($match);
+                    if (preg_match("/校正回歸本土個案([0-9,]+)例/sum", $brief, $match)) {
+                        $arr['amend']=str_replace(",","",$match[1]); unset($match);
+                    } elseif (preg_match("/另有([0-9,]+)例本土個案為校正回歸/sum", $brief, $match)) {
+                        $arr['amend']=str_replace(",","",$match[1]); unset($match);
                     }
                     if (preg_match("/均.{0,1}為本土/sum",$brief)) { // 均為本土個案 均例為本土個案
-                        preg_match("/([0-9]+)例.{0,2}COVID-19.{0,4}確定病例/sum", $brief, $match);
-                        $arr['local']=$match[1]; unset($match);
+                        preg_match("/([0-9,]+)例.{0,2}COVID-19.{0,4}確定病例/sum", $brief, $match);
+                        $arr['local']=str_replace(",","",$match[1]); unset($match);
                         $n=2;
                     } elseif (preg_match("/均.{0,1}為境外/",$brief)) {
-                        preg_match("/([0-9]+)例.{0,2}COVID-19.{0,4}確定病例/sum", $brief, $match);
-                        $arr['outside']=$match[1]; unset($match);
+                        preg_match("/([0-9,]+)例.{0,2}COVID-19.{0,4}確定病例/sum", $brief, $match);
+                        $arr['outside']=str_replace(",","",$match[1]); unset($match);
                         $n=2;
                     } else {
-                        if (preg_match("/([0-9]+)例.{0,1}本土/sum", $brief, $match)) {
-                            $arr['local']=$match[1]; unset($match);
+                        if (preg_match("/([0-9,]+)例.{0,1}本土/sum", $brief, $match)) {
+                            $arr['local']=str_replace(",","",$match[1]); unset($match);
                             $n++;
-                        } elseif (preg_match("/([0-9]+)例COVID-19本土/sum", $brief, $match)) {
-                            $arr['local']=$match[1]; unset($match);
+                        } elseif (preg_match("/([0-9,]+)例COVID-19本土/sum", $brief, $match)) {
+                            $arr['local']=str_replace(",","",$match[1]); unset($match);
                             $n++;
-                        } elseif (preg_match("/([0-9]+)例[\([案、0-9-]+\)本土/sum", $brief, $match)) {
+                        } elseif (preg_match("/([0-9,]+)例[\([案、0-9-]+\)本土/sum", $brief, $match)) {
                             // 分別為4例(案17230、案17238-17240)本土及30例境外移入
-                            $arr['local']=$match[1]; unset($match);
+                            $arr['local']=str_replace(",","",$match[1]); unset($match);
                             $n++;
                         }
-                        if (preg_match("/([0-9]+)例.{0,1}境外/sum", $brief, $match)) {
-                            $arr['outside']=$match[1]; unset($match);
+                        if (preg_match("/([0-9,]+)例.{0,1}境外/sum", $brief, $match)) {
+                            $arr['outside']=str_replace(",","",$match[1]); unset($match);
                             $n++;
-                        } elseif (preg_match("/([0-9]+)例COVID-19境外/sum", $brief, $match)) {
-                            $arr['outside']=$match[1]; unset($match);
+                        } elseif (preg_match("/([0-9,]+)例COVID-19境外/sum", $brief, $match)) {
+                            $arr['outside']=str_replace(",","",$match[1]); unset($match);
                             $n++;
-                        } elseif (preg_match("/([0-9]+)例COVID-19移入/sum", $brief, $match)) {
-                            $arr['outside']=$match[1]; unset($match); // 日公布國內新增11例COVID-19移入確定病例；另確診個案中無新增死亡。
+                        } elseif (preg_match("/([0-9,]+)例COVID-19移入/sum", $brief, $match)) {
+                            $arr['outside']=str_replace(",","",$match[1]); unset($match); // 日公布國內新增11例COVID-19移入確定病例；另確診個案中無新增死亡。
                             $n++;
-                        } elseif (preg_match("/([0-9]+)例COVID-19確定病例，.{2,6}入境/sum", $brief, $match)) {
-                            $arr['outside']=$match[1]; unset($match); //  新增1例COVID-19確定病例，自美國入境
+                        } elseif (preg_match("/([0-9,]+)例COVID-19確定病例，.{2,6}入境/sum", $brief, $match)) {
+                            $arr['outside']=str_replace(",","",$match[1]); unset($match); //  新增1例COVID-19確定病例，自美國入境
                             $n++;
                         }
                     }
-                    if (preg_match("/([0-9]+)例死亡/sum", $brief, $match)) {
-                        $arr['death']=$match[1]; unset($match);
+                    if (preg_match("/([0-9,]+)例死亡/sum", $brief, $match)) {
+                        $arr['death']=str_replace(",","",$match[1]); unset($match);
                     }
                 }
             }
